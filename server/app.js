@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const createRoute = require('./routes/create')
 const updateRoute = require('./routes/update')
@@ -10,6 +11,7 @@ const PORT = process.env.PORT || 5000
 
 const app = express()
 
+app.use(cors())
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 

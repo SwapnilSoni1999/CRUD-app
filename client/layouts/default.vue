@@ -1,20 +1,17 @@
 <template>
-  <div>
+  <div class="container">
+    <b-nav class="my-2" style="border: 1px solid grey">
+      <b-nav-item to="/" active>Home</b-nav-item>
+      <b-nav-item to="/register">Register</b-nav-item>
+    </b-nav>
     <Nuxt />
   </div>
 </template>
 
 <style>
 html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
