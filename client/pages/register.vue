@@ -93,6 +93,7 @@ export default {
     async onSubmit(evt) {
       evt.preventDefault();
       this.err = ''
+      this.form.birth_date = new Date(this.form.birth_date)
       try {
         const res = await this.$axios({
           method: 'POST',

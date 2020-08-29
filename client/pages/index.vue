@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-12">
         <b-card v-for="student in students" :key="student._id">
-          <b-card-body v-if="!isEditing">
+          <b-card-body v-if="!isEditing || student._id !== editingId">
             <b>First Name:</b>
             {{ student.first_name }}
             <br />
@@ -17,7 +17,7 @@
             {{ student.gender == 'M' ? 'Male': 'Female' }}
             <br />
             <b>Birth Date:</b>
-            {{ Date(student.birth_date) }}
+            {{ new Date(student.birth_date) }}
             <br />
             <b>Standard:</b>
             {{ student.standard }}
@@ -25,11 +25,11 @@
             <b>Division:</b>
             {{ student.division }}
           </b-card-body>
-          <div v-if="!isEditing">
+          <div v-if="!isEditing || student._id !== editingId">
             <b-button @click="edit(student._id)" type="button" variant="primary">Edit</b-button>
             <b-button @click="deleteStudent(student._id)" type="button" variant="danger">Delete</b-button>
           </div>
-          <b-card-body v-if="isEditing">
+          <b-card-body v-if="isEditing && student._id === editingId">
             <b-form @submit="onSubmit">
               <b-form-group id="input-group-1" label="First name:" label-for="input-1">
                 <b-form-input
@@ -113,6 +113,7 @@ export default {
       birth_date: null,
     },
     err: '',
+    editingId: '',
     isEditing: false,
     options: [
       { value: "M", text: "Male" },
@@ -131,11 +132,14 @@ export default {
     async edit(id) {
         const student = this.students.find((e) => e._id === id)
         this.form = student
-        this.isEditing = true   
+        this.isEditing = true
+        this.editingId = id  
     },
     async onSubmit(evt) {
       evt.preventDefault();
       this.err = ''
+      this.form.birth_date = new Date(this.form.birth_date)
+      console.log(this.form)
       try {
         const res = await this.$axios({
           method: 'POST',
